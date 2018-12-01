@@ -1,0 +1,9 @@
+<!-- Markdown Navigation -->
+{:navgroup: .navgroup}
+{:topicgroup: .topicgroup}
+
+{: .toc subcollection="IBM Analytics Engine CLI plug-in" audience="service" href="/docs/services/analytics-engine-cli-plugin/analytics-engine-service-cli.html" path="analytics-engine-cli-plugin"}
+IBM Analytics Engine CLI plug-in
+
+    analytics-engine-service-cli.md
+    
