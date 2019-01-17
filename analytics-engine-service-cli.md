@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-10-15"
+lastupdated: "2018-12-10"
 
 ---
 
@@ -988,7 +988,7 @@ ibmcloud ae versions [--user <user>] [--password <password>] [--serviceDetails]
        <dt>--password</dt>
        <dd>The password for the selected cluster user.</dd>
        <dt>--proxyUser</dt>
-       <dd>User to impersonate when running the job.</dd>
+       <dd>User to impersonate when running the job. Use `clsadmin` to avoid permission issues.</dd>
        <dt>--className</dt>
        <dd>Application Java/Spark main class</dd>
        <dt>--args</dt>
