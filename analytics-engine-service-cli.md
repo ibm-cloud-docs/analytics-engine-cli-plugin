@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2018
-lastupdated: "2018-12-10"
+  years: 2015, 2019
+lastupdated: "2019-01-25"
 
 ---
 
@@ -91,6 +91,7 @@ Application ID 'application_1491850285904_0023'
 Done
 ```
 
+<!--
 ## {{site.data.keyword.iae_full_notm}} CLI commands index
 {: #commands_index}
 
@@ -128,7 +129,7 @@ You can specify one of the following commands:
  </tr>
   </tbody>
  </table>
-
+-->
 
 ## endpoint
 {: #endpoint}
