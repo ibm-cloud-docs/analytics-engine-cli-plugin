@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2019
-lastupdated: "2019-01-25"
+lastupdated: "2019-07-03"
 
 ---
 
@@ -16,37 +16,35 @@ lastupdated: "2019-01-25"
 # {{site.data.keyword.iae_full_notm}} CLI plug-in
 {: #CLI_analytics_engine}
 
-Use the {{site.data.keyword.Bluemix_notm}} command-line interface (CLI) to interact with the {{site.data.keyword.iae_full_notm}} cluster.
+Use the {{site.data.keyword.cloud_notm}} command-line interface (CLI) to interact with the {{site.data.keyword.iae_full_notm}} cluster.
 
 ## Prerequisites
-To use the {{site.data.keyword.Bluemix_notm}} CLI, download and install the following packages on your local system. Do not install the packages on the {{site.data.keyword.iae_full_notm}} cluster.
+To use the {{site.data.keyword.cloud_notm}} CLI, download and install the following packages on your local system. Do not install the packages on the {{site.data.keyword.iae_full_notm}} cluster.
 
 - The [Cloud Foundry CLI](https://github.com/cloudfoundry/cli/blob/master/README.md#installing-using-a-package-manager)
 
-- The [{{site.data.keyword.Bluemix_notm}}  CLI](https://console.bluemix.net/docs/cli/index.html#cli)
+- The [{{site.data.keyword.cloud_notm}} CLI](/docs/cli?topic=cloud-cli-getting-started)
 
 ## Install the {{site.data.keyword.iae_full_notm}} CLI
 
-For details about the {{site.data.keyword.Bluemix_notm}} CLI plugin installation, see the [documentation](https://console.bluemix.net/docs/cli/reference/bluemix_cli/get_started.html#getting-started).
+For details about the {{site.data.keyword.cloud_notm}} CLI plugin installation, see the [documentation](/docs/cli?topic=cloud-cli-install-ibmcloud-cli).
 
-To list the plugins in the {{site.data.keyword.Bluemix_notm}} repository:
-
+To list the plugins in the {{site.data.keyword.cloud_notm}} repository:
 ```
-ibmcloud plugin repo-plugins -r Bluemix
-```
-{: codeblock}
-
-To install the {{site.data.keyword.iae_full_notm}} plugin from the {{site.data.keyword.Bluemix_notm}} repository:
-
-```
-ibmcloud plugin install -r Bluemix analytics-engine
+ibmcloud plugin repo-plugins -r "IBM Cloud"
 ```
 {: codeblock}
 
-Note: If the default {{site.data.keyword.Bluemix_notm}} repository is not available from your {{site.data.keyword.Bluemix_notm}} CLI, you might need to add the repository. This only needs to be done once.
+To install the {{site.data.keyword.iae_full_notm}} plugin from the {{site.data.keyword.cloud_notm}} repository:
+```
+ibmcloud plugin install -r "IBM Cloud" analytics-engine
+```
+{: codeblock}
+
+Note: If the default {{site.data.keyword.cloud_notm}} repository is not available from your {{site.data.keyword.cloud_notm}} CLI, you might need to add the repository. This only needs to be done once.
 
 ```
-ibmcloud plugin repo-add Bluemix https://plugins.ng.bluemix.net
+ibmcloud plugin repo-add "IBM Cloud" https://plugins.cloud.ibm.com/ui/repository.html
 ```
 {: codeblock}
 
@@ -134,7 +132,7 @@ You can specify one of the following commands:
 ## endpoint
 {: #endpoint}
 
-Use this command to set the {{site.data.keyword.iae_full_notm}} server endpoint if your {{site.data.keyword.Bluemix_short}} hosting location is `us-south` for example.
+Use this command to set the {{site.data.keyword.iae_full_notm}} server endpoint if your {{site.data.keyword.cloud_short}} hosting location is `us-south` for example.
 
 ```
 $ ibmcloud ae endpoint https://chs-xxx-xxx-mn001.us-south.ae.appdomain.cloud
@@ -221,10 +219,9 @@ ibmcloud ae file-system [--user <user>] [--password <password>] rm [-R] FILE
 - **get**
 
  Use this subcommand to copy a single file to the local file system from a remote HDFS file system.
-
  ```
-ibmcloud ae file-system [--user <user>] [--password <password>] get [SRC] [DST]
-```
+ ibmcloud ae file-system [--user <user>] [--password <password>] get [SRC] [DST]
+ ```
 
  **Command options**:
 
@@ -238,16 +235,15 @@ ibmcloud ae file-system [--user <user>] [--password <password>] get [SRC] [DST]
  **Example**:
 
  ```
-$ ibmcloud ae file-system get /user/clsadmin/run.log run.log
-User (clsadmin)>
-Password>
-Copying HDFS file '/user/clsadmin/run.log' contents to 'run.log'...
-OK
-```
+ $ ibmcloud ae file-system get /user/clsadmin/run.log run.log
+ User (clsadmin)>
+ Password>
+ Copying HDFS file '/user/clsadmin/run.log' contents to 'run.log'...
+ OK
+ ```
 - **ls**
 
  Use this subcommand to list the contents of a remote destination directory.
-
  ```
  ibmcloud ae file-system [--user <user>] [--password <password>] ls [DIR]
  ```
@@ -259,60 +255,60 @@ OK
    <dd>The path of the remote HDFS directory. This option is optional. If this option is  empty, the contents of the HDFS user home directory is returned.</dd>
    </dl>
 
-  **Examples**:
-  ```
-  $ ibmcloud ae file-system ls
-  User (clsadmin)>
-  Password>
-  Found 2 files in '/user/clsadmin'...
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:28 CDT 2017  .sparkStaging
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:11 CDT 2017  cli
-  OK
-  ```
-  ```
-  $ ibmcloud ae file-system ls /user/clsadmin/cli
-  User (clsadmin)>
-  Password>
-  Found 3 files in '/user/clsadmin/cli'...
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 11:19:36 CDT 2017  0fdd1caf-a21f-4a18-970c-e40255e8f0ad
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 11:19:16 CDT 2017  28c3a243-59cc-4bda-a186-a5bd77f62570
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:11 CDT 2017  5b9a0a4c-21c1-4b41-b8bb-2b9ca47e1a51
-  OK
-  ```
+ **Examples**:
+ ```
+ $ ibmcloud ae file-system ls
+ User (clsadmin)>
+ Password>
+ Found 2 files in '/user/clsadmin'...
+ drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:28 CDT 2017  .sparkStaging
+ drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:11 CDT 2017  cli
+ OK
+ ```
+
+ ```
+ $ ibmcloud ae file-system ls /user/clsadmin/cli
+ User (clsadmin)>
+ Password>
+ Found 3 files in '/user/clsadmin/cli'...
+ drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 11:19:36 CDT 2017  0fdd1caf-a21f-4a18-970c-e40255e8f0ad
+ drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 11:19:16 CDT 2017  28c3a243-59cc-4bda-a186-a5bd77f62570
+ drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:11 CDT 2017  5b9a0a4c-21c1-4b41-b8bb-2b9ca47e1a51
+ OK
+ ```
+
 - **mkdir**
 
-   Use this subcommand to create a directory on the remote HDFS file system.
+ Use this subcommand to create a directory on the remote HDFS file system.
+ ```
+ ibmcloud ae file-system [--user <user>] [--password <password>] mkdir [DIR]
+ ```
 
-   ```
-  ibmcloud ae file-system [--user <user>] [--password <password>] mkdir [DIR]
-  ```
+  **Command options**:
 
-   **Command options**:
-
-     <dl>
-     <dt>DIR</dt>
+  <dl>
+   <dt>DIR</dt>
      <dd>The file path to the remote HDFS file system.</dd>
-      </dl>
+  </dl>
 
-   **Example**:
+  **Example**:
 
-   ```
-  $ ibmcloud ae file-system get /user/clsadmin/run.log run.log
-  User (clsadmin)>
-  Password>
-  Copying HDFS file '/user/clsadmin/run.log' contents to 'run.log'...
-  OK
-  ```
+ ```
+ $ ibmcloud ae file-system get /user/clsadmin/run.log run.log
+ User (clsadmin)>
+ Password>
+ Copying HDFS file '/user/clsadmin/run.log' contents to 'run.log'...
+ OK
+ ```
 
 - **mv**
 
-     Use this subcommand to move a single file from a source to a destination file path on the remote HDFS file system.
+ Use this subcommand to move a single file from a source to a destination file path on the remote HDFS file system.
+ ```
+ ibmcloud ae file-system [--user <user>] [--password <password>] mv [SRC] [DST]
+ ```
 
-     ```
-     ibmcloud ae file-system [--user <user>] [--password <password>] mv [SRC] [DST]
-     ```
-
-     **Command options**:
+  **Command options**:
 
      <dl>
        <dt>SRC</dt>
@@ -321,30 +317,30 @@ OK
        <dd>The target file path on the remote HDFS  file system.</dd>
        </dl>
 
-    **Examples**:
+  **Examples**:
 
-    ```
-    $ ibmcloud ae file-system mv /user/clsadmin/run.log /user/clsadmin/run.log.bkp
-    User (clsadmin)>
-    Password>
-    Moving HDFS path from '/user/clsadmin/run.log' to '/user/clsadmin/run.log.bkp'...
-    OK
-      ```
+  ```
+  $ ibmcloud ae file-system mv /user/clsadmin/run.log /user/clsadmin/run.log.bkp
+  User (clsadmin)>
+  Password>
+  Moving HDFS path from '/user/clsadmin/run.log' to '/user/clsadmin/run.log.bkp'...
+  OK
+  ```
 
-    ```
-    $ ibmcloud ae file-system mv /user/clsadmin/run.log /tmp/run.log.bkp
-    User (clsadmin)>
-    Password>
-    Moving HDFS path from '/user/clsadmin/run.log' to '/tmp/run.log.bkp'...
-    OK
-      ```
+  ```
+  $ ibmcloud ae file-system mv /user/clsadmin/run.log /tmp/run.log.bkp
+  User (clsadmin)>
+  Password>
+  Moving HDFS path from '/user/clsadmin/run.log' to '/tmp/run.log.bkp'...
+  OK
+  ```
+
 - **put**
 
-    Use this subcommand to copy a single file from the local file system to the remote HDFS file system.
-
-    ```
-  ibmcloud ae file-system [--user <user>] [--password <password>] put [SRC] [DST]
-    ```
+ Use this subcommand to copy a single file from the local file system to the remote HDFS file system.
+ ```
+ ibmcloud ae file-system [--user <user>] [--password <password>] put [SRC] [DST]
+ ```
 
   **Command options**:
 
@@ -353,17 +349,18 @@ OK
       <dd>The source file path on the local file system.</dd>
       <dt>DST</dt>
       <dd>The target file path on the remote HDFS file system.</dd>
-      </dl>
+    </dl>
 
-   **Example**:
+ **Example**:
 
-     ```
-  $ ibmcloud ae file-system put sparkpi_2.10-1.0.jar /user/clsadmin/jobs/sparkpi_2.10-1.0.jar
-  User (clsadmin)>
-  Password>
-  Copying local file 'sparkpi_2.10-1.0.jar' to HDFS location '/user/clsadmin/jobs/sparkpi_2.10-1.0.jar'...
-  OK
-     ```
+ ```
+ $ ibmcloud ae file-system put sparkpi_2.10-1.0.jar /user/clsadmin/jobs/sparkpi_2.10-1.0.jar
+ User (clsadmin)>
+ Password>
+ Copying local file 'sparkpi_2.10-1.0.jar' to HDFS location '/user/clsadmin/jobs/sparkpi_2.10-1.0.jar'...
+ OK
+ ```
+
 - **rm**
 
  Use this subcommand to remove a file or directory from the remote HDFS.
@@ -384,24 +381,23 @@ OK
  Removes a file:
 
  ```
-$ ibmcloud ae file-system rm /user/clsadmin/run.log
-User (clsadmin)>
-Password>
-Are you sure you want to remove '/user/clsadmin/run.log' from HDFS ? [y/N]> y
-Removing...
-OK
-```
+ $ ibmcloud ae file-system rm /user/clsadmin/run.log
+ User (clsadmin)>
+ Password>
+ Are you sure you want to remove '/user/clsadmin/run.log' from HDFS ? [y/N]> y
+ Removing...
+ OK
+ ```
 
  Removes directory recursively:
-
  ```
-$ ibmcloud ae file-system rm -R /user/clsadmin/logs
-User (clsadmin)>
-Password>
-Are you sure you want to remove '/user/clsadmin/logs' from HDFS ? [y/N]> y
-Removing...
-OK
-```     
+ $ ibmcloud ae file-system rm -R /user/clsadmin/logs
+ User (clsadmin)>
+ Password>
+ Are you sure you want to remove '/user/clsadmin/logs' from HDFS ? [y/N]> y
+ Removing...
+ OK
+ ```     
 
 ## kernels
 {: #kernels}
