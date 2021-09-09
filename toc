@@ -1,9 +1,11 @@
-<!-- Markdown Navigation -->
 {:navgroup: .navgroup}
 {:topicgroup: .topicgroup}
 
-{: .toc subcollection="analytics-engine-cli-plugin" audience="service" href="/docs/services/analytics-engine-cli-plugin/analytics-engine-service-cli.html" path="analytics-engine-cli-plugin"}
-IBM Analytics Engine CLI plug-in
+{: .toc subcollection="analytics-engine-cli-plugin" audience="service" href="/docs/analytics-engine-cli-plugin?topic=analytics-engine-cli-plugin-CLI_analytics_engine" path="analytics-engine-cli-plugin"}
 
+IBM Analytics Engine CLI reference
+
+    {: .navgroup id="reference"}
+    analytics-engine-serverless-cli.md
     analytics-engine-service-cli.md
-    
+    {: .navgroup-end}

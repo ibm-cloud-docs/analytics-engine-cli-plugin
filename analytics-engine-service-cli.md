@@ -2,7 +2,9 @@
 
 copyright:
   years: 2015, 2020
-lastupdated: "2029-03-02"
+lastupdated: "2021-07-26"
+
+subcollection: analytics-engine-cli-plugin
 
 ---
 
@@ -13,10 +15,10 @@ lastupdated: "2029-03-02"
 {:screen: .screen}
 {:tip: .tip}
 
-# {{site.data.keyword.iae_full_notm}} CLI plug-in
-{: #CLI_analytics_engine}
+# {{site.data.keyword.iae_full_notm}} CLI plug-in for classic instances
+{: #CLI_analytics_engine_classic}
 
-Use the {{site.data.keyword.Bluemix_notm}} command-line interface (CLI) to interact with the {{site.data.keyword.iae_full_notm}} cluster.
+Use the {{site.data.keyword.Bluemix_notm}} command-line interface (CLI) to interact with the cluster for an  {{site.data.keyword.iae_full_notm}} classic service instance.
 
 ## Prerequisites
 To use the {{site.data.keyword.Bluemix_notm}} CLI, download and install the following packages on your local system. Do not install the packages on the {{site.data.keyword.iae_full_notm}} cluster.
@@ -53,44 +55,45 @@ ibmcloud plugin repo-add Bluemix https://plugins.ng.bluemix.net
 ## Get started
 
 1. Run the [spark-endpoint](#endpoint) command to set the {{site.data.keyword.iae_full_notm}} cluster endpoint. The argument for `endpoint` is the IP or hostname of the cluster management node.
-  ```
-  ibmcloud ae endpoint https://iae-tmp-867-mn001.<changeme>.ae.appdomain.cloud
-  ```
+    ```
+    ibmcloud ae endpoint https://iae-tmp-867-mn001.<changeme>.ae.appdomain.cloud
 
-  where `<changeme>` is the {{site.data.keyword.Bluemix_short}} hosting location, for example `us-south`.
+    ```
 
-  When prompted, accept the default port numbers for the Ambari(9443) and Knox(8443) services.
+    where `<changeme>` is the {{site.data.keyword.Bluemix_short}} hosting location, for example `us-south`.
 
-  Response if your {{site.data.keyword.Bluemix_short}} hosting location is `us-south`:
+    When prompted, accept the default port numbers for the Ambari(9443) and Knox(8443) services.
 
-  ```
-  Registering endpoint 'https://iae-tmp-867-mn001.us-south.ae.appdomain.cloud'...
-  Ambari Port Number [Optional: Press enter for default value] (9443)>
-  Knox Port Number [Optional: Press enter for default value] (8443)>
-  OK
-  Endpoint 'https://iae-tmp-867-mn001.us-south.ae.appdomain.cloud' set.
-  ```
+    Response if your {{site.data.keyword.Bluemix_short}} hosting location is `us-south`:
+
+    ```
+    Registering endpoint 'https://iae-tmp-867-mn001.us-south.ae.appdomain.cloud'...
+    Ambari Port Number [Optional: Press enter for default value] (9443)>
+    Knox Port Number [Optional: Press enter for default value] (8443)>
+    OK
+    Endpoint 'https://iae-tmp-867-mn001.us-south.ae.appdomain.cloud' set.
+    ```
 
 1. Run the [spark-submit](#spark-submit) command. For example:
-  ```
-  $ ibmcloud ae spark-submit --className org.apache.spark.examples.SparkPi local:/usr/hdp/current/spark2-client/jars/spark-examples.jar
-  ```
+    ```
+    $ ibmcloud ae spark-submit --className org.apache.spark.examples.SparkPi local:/usr/hdp/current/spark2-client/jars/spark-examples.jar
+    ```
 
-  Enter the {{site.data.keyword.iae_full_notm}} cluster login credentials at the prompts. To set the default username for command execution, see the [`username`](#username) command.
+    Enter the {{site.data.keyword.iae_full_notm}} cluster login credentials at the prompts. To set the default username for command execution, see the [`username`](#username) command.
 
-  Response if your {{site.data.keyword.Bluemix_short}} hosting location is `us-south`:
-  ```
-  User (clsadmin)>
-  Password>
-  Contacting endpoint 'https://iae-tmp-867-mn001.us-south.ae.appdomain.cloud:8443'...
-  Job ID '17'
-  Waiting for job to return application ID. Will check every 10 seconds, and stop checking after 2 minutes. Press Control C to stop waiting.
-  Finished contacting endpoint 'https://iae-tmp-867-mn001.us-south.ae.appdomain.cloud:8443'
-  OK
-  Job ID '17'
-  Application ID 'application_1491850285904_0023'
-  Done
-  ```
+    Response if your {{site.data.keyword.Bluemix_short}} hosting location is `us-south`:
+    ```
+    User (clsadmin)>
+    Password>
+    Contacting endpoint 'https://iae-tmp-867-mn001.us-south.ae.appdomain.cloud:8443'...
+    Job ID '17'
+    Waiting for job to return application ID. Will check every 10 seconds, and stop checking after 2 minutes. Press Control C to stop waiting.
+    Finished contacting endpoint 'https://iae-tmp-867-mn001.us-south.ae.appdomain.cloud:8443'
+    OK
+    Job ID '17'
+    Application ID 'application_1491850285904_0023'
+    Done
+    ```
 
 ## endpoint
 {: #endpoint}
@@ -103,22 +106,22 @@ Registering endpoint 'https://chs-xxx-xxx-mn001.us-south.ae.appdomain.cloud'...
 Ambari Port Number [Optional: Press enter for default value] (9443)>
 Knox Port Number [Optional: Press enter for default value] (8443)>
 OK
-Endpoint ''https://chs-xxx-xxx-mn001.us-south.ae.appdomain.cloud' set.
+Endpoint 'https://chs-xxx-xxx-mn001.us-south.ae.appdomain.cloud' set.
 ```
 
 **Prerequisites**: None.
 
 **Command options**:
 
-<dl>
-<dt>--unset</dt>
-<dd>Removes all endpoint information.</dd>
-<dt>ENDPOINT_URI</dt>
-<dd>Sets endpoint to a provided value. <br> To create the ENDPOINT URI:
-<ol>
-<li>Get the hostname. See [Getting credentials](/docs/services/AnalyticsEngine?topic=AnalyticsEngine-retrieve-endpoints).</li>
-<li>Set ENDPOINT_URI=https://hostname</li></ol></dd>
-</dl>
+--unset
+:   Removes all endpoint information.
+
+ENDPOINT_URI
+:   Sets endpoint to a provided value. To create the ENDPOINT URI:
+
+    - Get the hostname. See [Getting credentials](/docs/services/AnalyticsEngine?topic=AnalyticsEngine-retrieve-endpoints).
+    - Set ENDPOINT_URI=https://hostname
+
 
 **Examples**:
 
@@ -170,199 +173,190 @@ ibmcloud ae file-system [--user <user>] [--password <password>] rm [-R] FILE
 
 **Command options**:
 
-<dl>
-<dt>--user</dt>
-<dd>A user with authority to get the version information.</dd>
-<dt>--password</dt>
-<dd>The password for the selected user.</dd>
-</dl>
+--user
+:   Removes all endpoint information.
+
+--password
+:   The password for the selected user.
 
 **Subcommand options for file-system**:
 
 - **get**
 
-  Use this subcommand to copy a single file to the local file system from a remote HDFS file system.
+    Use this subcommand to copy a single file to the local file system from a remote HDFS file system.
 
-  ```
-  ibmcloud ae file-system [--user <user>] [--password <password>] get [SRC] [DST]
-  ```
+    ```
+    ibmcloud ae file-system [--user <user>] [--password <password>] get [SRC] [DST]
+    ```
 
-  **Command options**:
+    **Command options**:
 
-  <dl>
-  <dt>SRC</dt>
-  <dd>The file path to the remote HDFS file system.</dd>
-  <dt>DST</dt>
-  <dd>The file path on the local file system.</dd>
-  </dl>
+    -- SRC
+    : The file path to the remote HDFS file system.
 
-  **Example**:
+    -- DST
+    : The file path on the local file system.
 
-  ```
-  $ ibmcloud ae file-system get /user/clsadmin/run.log run.log
-  User (clsadmin)>
-  Password>
-  Copying HDFS file '/user/clsadmin/run.log' contents to 'run.log'...
-  OK
-  ```
+    **Example**:
+
+    ```
+    $ ibmcloud ae file-system get /user/clsadmin/run.log run.log
+    User (clsadmin)>
+    Password>
+    Copying HDFS file '/user/clsadmin/run.log' contents to 'run.log'...
+    OK
+    ```
 - **ls**
 
-  Use this subcommand to list the contents of a remote destination directory.
+    Use this subcommand to list the contents of a remote destination directory.
 
-  ```
-  ibmcloud ae file-system [--user <user>] [--password <password>] ls [DIR]
-  ```
+    ```
+    ibmcloud ae file-system [--user <user>] [--password <password>] ls [DIR]
+    ```
 
-  **Command options**:
+    **Command options**:
+    --DIR
+    :   The path of the remote HDFS directory. This option is optional. If this option is  empty, the contents of the HDFS user home directory is returned.
 
-  <dl>
-  <dt>DIR</dt>
-  <dd>The path of the remote HDFS directory. This option is optional. If this option is  empty, the contents of the HDFS user home directory is returned.</dd>
-  </dl>
-
-  **Examples**:
-  ```
-  $ ibmcloud ae file-system ls
-  User (clsadmin)>
-  Password>
-  Found 2 files in '/user/clsadmin'...
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:28 CDT 2017  .sparkStaging
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:11 CDT 2017  cli
-  OK
-  ```
-  ```
-  $ ibmcloud ae file-system ls /user/clsadmin/cli
-  User (clsadmin)>
-  Password>
-  Found 3 files in '/user/clsadmin/cli'...
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 11:19:36 CDT 2017  0fdd1caf-a21f-4a18-970c-e40255e8f0ad
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 11:19:16 CDT 2017  28c3a243-59cc-4bda-a186-a5bd77f62570
-  drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:11 CDT 2017  5b9a0a4c-21c1-4b41-b8bb-2b9ca47e1a51
-  OK
-  ```
+    **Examples**:
+    ```
+    $ ibmcloud ae file-system ls
+    User (clsadmin)>
+    Password>
+    Found 2 files in '/user/clsadmin'...
+    drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:28 CDT 2017  .sparkStaging
+    drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:11 CDT 2017  cli
+    OK
+    ```
+    ```
+    $ ibmcloud ae file-system ls /user/clsadmin/cli
+    User (clsadmin)>
+    Password>
+    Found 3 files in '/user/clsadmin/cli'...
+    drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 11:19:36 CDT 2017  0fdd1caf-a21f-4a18-970c-e40255e8f0ad
+    drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 11:19:16 CDT 2017  28c3a243-59cc-4bda-a186-a5bd77f62570
+    drwxr-xr-x  0  clsadmin  biusers  0  Tue Apr 11 12:33:11 CDT 2017  5b9a0a4c-21c1-4b41-b8bb-2b9ca47e1a51
+    OK
+    ```
 - **mkdir**
 
-  Use this subcommand to create a directory on the remote HDFS file system.
+    Use this subcommand to create a directory on the remote HDFS file system.
 
-  ```
-  ibmcloud ae file-system [--user <user>] [--password <password>] mkdir [DIR]
-  ```
+    ```
+    ibmcloud ae file-system [--user <user>] [--password <password>] mkdir [DIR]
+    ```
 
-  **Command options**:
+    **Command options**:
 
-  <dl>
-  <dt>DIR</dt>
-  <dd>The file path to the remote HDFS file system.</dd>
-  </dl>
+    --DIR
+    :   The file path to the remote HDFS file system.
 
-  **Example**:
 
-  ```
-  $ ibmcloud ae file-system get /user/clsadmin/run.log run.log
-  User (clsadmin)>
-  Password>
-  Copying HDFS file '/user/clsadmin/run.log' contents to 'run.log'...
-  OK
-  ```
+    **Example**:
+
+    ```
+    $ ibmcloud ae file-system get /user/clsadmin/run.log run.log
+    User (clsadmin)>
+    Password>
+    Copying HDFS file '/user/clsadmin/run.log' contents to 'run.log'...
+    OK
+    ```
 
 - **mv**
 
-  Use this subcommand to move a single file from a source to a destination file path on the remote HDFS file system.
+    Use this subcommand to move a single file from a source to a destination file path on the remote HDFS file system.
 
-  ```
-  ibmcloud ae file-system [--user <user>] [--password <password>] mv [SRC] [DST]
-  ```
+    ```
+    ibmcloud ae file-system [--user <user>] [--password <password>] mv [SRC] [DST]
+    ```
 
-  **Command options**:
+    **Command options**:
 
-  <dl>
-  <dt>SRC</dt>
-  <dd>The source file path on the remote HDFS file system.</dd>
-  <dt>DST</dt>
-  <dd>The target file path on the remote HDFS  file system.</dd>
-  </dl>
+    SRC
+    :   The source file path on the remote HDFS file system.
 
-  **Examples**:
+    DST
+    :   The target file path on the remote HDFS  file system.
 
-  ```
-  $ ibmcloud ae file-system mv /user/clsadmin/run.log /user/clsadmin/run.log.bkp
-  User (clsadmin)>
-  Password>
-  Moving HDFS path from '/user/clsadmin/run.log' to '/user/clsadmin/run.log.bkp'...
-  OK
-  ```
 
-  ```
-  $ ibmcloud ae file-system mv /user/clsadmin/run.log /tmp/run.log.bkp
-  User (clsadmin)>
-  Password>
-  Moving HDFS path from '/user/clsadmin/run.log' to '/tmp/run.log.bkp'...
-  OK
-  ```
+    **Examples**:
+
+    ```
+    $ ibmcloud ae file-system mv /user/clsadmin/run.log /user/clsadmin/run.log.bkp
+    User (clsadmin)>
+    Password>
+    Moving HDFS path from '/user/clsadmin/run.log' to '/user/clsadmin/run.log.bkp'...
+    OK
+    ```
+
+    ```
+    $ ibmcloud ae file-system mv /user/clsadmin/run.log /tmp/run.log.bkp
+    User (clsadmin)>
+    Password>
+    Moving HDFS path from '/user/clsadmin/run.log' to '/tmp/run.log.bkp'...
+    OK
+    ```
 - **put**
 
-  Use this subcommand to copy a single file from the local file system to the remote HDFS file system.
+    Use this subcommand to copy a single file from the local file system to the remote HDFS file system.
 
-  ```
-  ibmcloud ae file-system [--user <user>] [--password <password>] put [SRC] [DST]
-  ```
+    ```
+    ibmcloud ae file-system [--user <user>] [--password <password>] put [SRC] [DST]
+    ```
 
-  **Command options**:
+    **Command options**:
 
-  <dl>
-  <dt>SRC</dt>
-  <dd>The source file path on the local file system.</dd>
-  <dt>DST</dt>
-  <dd>The target file path on the remote HDFS file system.</dd>
-  </dl>
+    SRC
+    :   The source file path on the local file system.
 
-  **Example**:
+    DST
+    :   The target file path on the remote HDFS file system.
 
-  ```
-  $ ibmcloud ae file-system put sparkpi_2.10-1.0.jar /user/clsadmin/jobs/sparkpi_2.10-1.0.jar
-  User (clsadmin)>
-  Password>
-  Copying local file 'sparkpi_2.10-1.0.jar' to HDFS location '/user/clsadmin/jobs/sparkpi_2.10-1.0.jar'...
-  OK
-  ```
+    **Example**:
+
+    ```
+    $ ibmcloud ae file-system put sparkpi_2.10-1.0.jar /user/clsadmin/jobs/sparkpi_2.10-1.0.jar
+    User (clsadmin)>
+    Password>
+    Copying local file 'sparkpi_2.10-1.0.jar' to HDFS location '/user/clsadmin/jobs/sparkpi_2.10-1.0.jar'...
+    OK
+    ```
 - **rm**
 
-  Use this subcommand to remove a file or directory from the remote HDFS.
+    Use this subcommand to remove a file or directory from the remote HDFS.
 
-  ```
-  ibmcloud ae file-system [--user <user>]  [--password <password>] rm [-R] FILE
-  ```
+    ```
+    ibmcloud ae file-system [--user <user>]  [--password <password>] rm [-R] FILE
+    ```
 
- **Command options**:
+    **Command options**:
 
-  <dl>
-  <dt>FILE</dt>
-  <dd>The file path on the remote HDFS file system.</dd>
-  </dl>
+    FILE
+    :   The file path on the remote HDFS file system.
 
-  **Examples**:
+    **Examples**:
 
-  Removes a file:
+    Removes a file:
 
-  ```
-  $ ibmcloud ae file-system rm /user/clsadmin/run.log
-  User (clsadmin)>
-  Password>
-  Are you sure you want to remove '/user/clsadmin/run.log' from HDFS ? [y/N]> y
-  Removing...
-  OK
-  ```
+    ```
+    $ ibmcloud ae file-system rm /user/clsadmin/run.log
+    User (clsadmin)>
+    Password>
+    Are you sure you want to remove '/user/clsadmin/run.log' from HDFS ? [y/N]> y
+    Removing...
+    OK
+    ```
 
-  Removes directory recursively:
+    Removes directory recursively:
 
-  ```
-  $ ibmcloud ae file-system rm -R /user/clsadmin/logs
-  User (clsadmin)>
-  Password>
-  Are you sure you want to remove '/user/clsadmin/logs' from HDFS ? [y/N]> y
-  Removing...
-  OK
-  ```     
+    ```
+    $ ibmcloud ae file-system rm -R /user/clsadmin/logs
+    User (clsadmin)>
+    Password>
+    Are you sure you want to remove '/user/clsadmin/logs' from HDFS ? [y/N]> y
+    Removing...
+    OK
+    ```     
 
 ## kernels
 {: #kernels}
@@ -395,46 +389,43 @@ ibmcloud ae kernels [--user <user>] [--password <password>] specs
 
 **Command options**:
 
-<dl>
-<dt>--user</dt>
-<dd>A user with the authority to get version information.</dd>
-<dt>--password</dt>
-<dd>The password for the selected user.</dd>
-</dl>
+--user
+:   A user with the authority to get version information.
+
+--password
+:   The password for the selected user.
+
 
 **Subcommand options for kernels**:
 
   - **create**
 
-  Use this subcommand to create a kernel instance.
+    Use this subcommand to create a kernel instance.
 
-  ```
-  ibmcloud ae kernels [--user <user>] [--password <password>] create SPEC_NAME
-  ```
+    ```
+    ibmcloud ae kernels [--user <user>] [--password <password>] create SPEC_NAME
+    ```
 
     **Command options**:
 
-    <dl>
-    <dt>SPEC_NAME</dt>
-    <dd>The name of a kernel specification.</dd>
-    <dt>specs</dt>
-    <dd>Use `ibmcloud ae kernels specs` for the available kernel specification names.</dd>
-    </dl>
+    --SPEC_NAME
+    :   The name of a kernel specification.
+    specs
+    :   Use `ibmcloud ae kernels specs` for the available kernel specification names.
+
 
   - **delete**
 
-  Use this subcommand to kill a kernel instance and remove the kernel ID.
+    Use this subcommand to kill a kernel instance and remove the kernel ID.
 
-  ```
-  ibmcloud ae kernels [--user <user>] [--password <password>] delete ID
-  ```
+    ```
+    ibmcloud ae kernels [--user <user>] [--password <password>] delete ID
+    ```
 
     **Command options**:
 
-    <dl>
-    <dt>ID</dt>
-    <dd>The kernel ID that will be deleted.</dd>
-    </dl>
+    ID
+    :   The kernel ID that will be deleted.
 
   - **get**
 
@@ -446,60 +437,57 @@ ibmcloud ae kernels [--user <user>] [--password <password>] specs
 
     **Command options**:
 
-    <dl>
-    <dt>ID</dt>
-    <dd>The kernel ID whose information will be returned.</dd>
-    </dl>
+    ID
+    :   The kernel ID whose information will be returned.
+
 
   - **interrupt**
 
-  Use this subcommand to issue an interrupt request to the kernel instance.
+    Use this subcommand to issue an interrupt request to the kernel instance.
 
-  ```
-  ibmcloud ae kernels [--user <user>] [--password <password>] interrupt ID
-  ```
+    ```
+    ibmcloud ae kernels [--user <user>] [--password <password>] interrupt ID
+    ```
 
     **Command options**:
 
-    <dl>
-    <dt>ID</dt>
-    <dd>The kernel ID that will be interrupted.</dd>
-    </dl>
+    ID
+    :   The kernel ID that will be interrupted.
+
 
 - **ls**
 
-  Use this subcommand to list kernel instances.
+    Use this subcommand to list kernel instances.
 
-  ```
-  ibmcloud ae kernels [--user <user>] [--password <password>] ls
-  ```
-
-  **Command options**:
-
-  None.
-
-- **restart**
-
-  Use this subcommand to issue a restart request to the kernel instance.
-
-  ```
-  ibmcloud ae kernels [--user <user>] [--password <password>] restart ID
-  ```
+    ```
+    ibmcloud ae kernels [--user <user>] [--password <password>] ls
+    ```
 
     **Command options**:
 
-    <dl>
-    <dt>ID</dt>
-    <dd>The kernel ID of the kernel that is restarted.</dd>
-    </dl>
+    None.
+
+- **restart**
+
+    Use this subcommand to issue a restart request to the kernel instance.
+
+    ```
+    ibmcloud ae kernels [--user <user>] [--password <password>] restart ID
+    ```
+
+    **Command options**:
+
+    ID
+    :   The kernel ID of the kernel that is restarted.
+
 
 - **specs**
 
-  Use this subcommand to show the kernel specifications.
+    Use this subcommand to show the kernel specifications.
 
-  ```
-  ibmcloud ae kernels [--user <user>] [--password <password>] specs
-  ```
+    ```
+    ibmcloud ae kernels [--user <user>] [--password <password>] specs
+     ```
 
     **Command options**:
 
@@ -512,13 +500,13 @@ Use this command to set the default username for {{site.data.keyword.iae_full_no
 
 ```
 ibmcloud ae username
-   Displays current username configuration
+Displays current username configuration
 
 ibmcloud ae username --unset
-   Removes username information
+Removes username information
 
 ibmcloud ae username USERNAME
-   Sets the username to the provided value
+Sets the username to the provided value
 
 USERNAME is the name of the user to authenticate with, e.g., clsadmin
 ```
@@ -527,14 +515,15 @@ USERNAME is the name of the user to authenticate with, e.g., clsadmin
 
 **Command options**:
 
-<dl>
-<dt>--user</dt>
-<dd>A user with authority to get the version information.</dd>
-<dt>--password</dt>
-<dd>The password for the selected user.</dd>
-<dt>--unset</dt>
-<dd> Removes username.</dd>   
-</dl>
+--user
+:   A user with authority to get the version information.
+
+--password
+:   The password for the selected user.
+
+--unset
+:   Removes username.
+
 
 **Examples**:
 
@@ -579,14 +568,15 @@ ibmcloud ae versions [--user <user>] [--password <password>] [--serviceDetails]
 
 **Command options**:
 
-<dl>
-<dt>--user</dt>
-<dd>A user with authority to get the version information.</dd>
-<dt>--password</dt>
-<dd>The password for the selected user.</dd>
-<dt>--serviceDetails</dt>
-<dd>Provides information about the services installed within the cluster.</dd>   
-</dl>
+--user
+:   A user with authority to get the version information.
+
+--password
+:   The password for the selected user.
+
+--serviceDetails
+:   Provides information about the services installed within the cluster.
+
 
 **Examples**:
 
@@ -631,12 +621,11 @@ JOB-ID is the identifier for the job. This value is returned from spark-submit, 
 
 **Command options**:
 
-<dl>
-<dt>--user</dt>
-<dd>A user with authority to get the version information.</dd>
-<dt>--password</dt>
-<dd>The password for the selected user.</dd>
-</dl>
+--user
+:   A user with authority to get the version information.
+
+--password
+:   The password for the selected user.
 
 **Example**:
 
@@ -667,12 +656,11 @@ JOB-ID is the identifier for the job. This value is returned from spark-submit, 
 
 **Command options**:
 
-<dl>
-<dt>--user</dt>
-<dd>A user with authority to get the version information.</dd>
-<dt>--password</dt>
-<dd>The password for the selected user.</dd>
-</dl>
+--user
+:   A user with authority to get the version information.
+
+--password
+:   The password for the selected user.
 
 **Example**:
 
@@ -714,14 +702,14 @@ ibmcloud ae spark-job-statuses [--user <user>] [--password <password>] [--includ
 
 **Command options**:
 
-<dl>
-<dt>--user</dt>
-<dd>A user with authority to get the version information.</dd>
-<dt>--password</dt>
-<dd>The password for the selected user.</dd>
-<dt>--includeSubmissionLogs</dt>
-<dd>Flag to indicate if the logs should be included in the status list.</dd>
-</dl>
+--user
+:   A user with authority to get the version information.
+
+--password
+:   The password for the selected user.
+
+--includeSubmissionLogs
+:   Flag to indicate if the logs should be included in the status list.
 
 **Examples**:
 
@@ -800,20 +788,24 @@ APPLICATION-ID is the YARN application ID for the job. This value is returned fr
 
 **Command options**:
 
-<dl>
-<dt>--user</dt>
-<dd>A user with authority to get the version information.</dd>
-<dt>--password</dt>
-<dd>The password for the selected user.</dd>
-<dt>--driver</dt>
-<dd>Flag to indicate if the Spark driver logs should be included. If APPLICATION-ID is provided, this flag or the executor flag is required.</dd>
-<dt>--executor</dt>
-<dd>Flag to indicate if the Spark executor logs should be included. If APPLICATION-ID is provided, this flag or the driver flag is required.</dd>
-<dt>--outputDir</dt>
-<dd>Write output into this folder.</dd>
-<dt>--applicationID</dt>
-<dd>Flag to indicate that an APPLICATION-ID will be supplied rather than a JOB-ID. If this flag is not set, JOB-ID is expected.</dd>
-</dl>
+--user
+:   A user with authority to get the version information.
+
+--password
+:   The password for the selected user.
+
+--driver
+:   Flag to indicate if the Spark driver logs should be included. If APPLICATION-ID is provided, this flag or the executor flag is required.
+
+--executor
+:   Flag to indicate if the Spark executor logs should be included. If APPLICATION-ID is provided, this flag or the driver flag is required.
+
+--outputDir
+:   Write output into this folder.
+
+--applicationID
+:   Flag to indicate that an APPLICATION-ID will be supplied rather than a JOB-ID. If this flag is not set, JOB-ID is expected.
+
 
 **Examples**:
 
@@ -952,46 +944,62 @@ FILE is the file containing the application to execute
 
 **Command options**:
 
-<dl>
-<dt>--user</dt>
-<dd>A user with authority to access the cluster.</dd>
-<dt>--password</dt>
-<dd>The password for the selected cluster user.</dd>
-<dt>--proxyUser</dt>
-<dd>User to impersonate when running the job. Use `clsadmin` to avoid permission issues.</dd>
-<dt>--className</dt>
-<dd>Application Java/Spark main class</dd>
-<dt>--args</dt>
-<dd>Command-line arguments for the application. The argument can be repeated multiple times.</dd>
-<dt>--jars</dt>
-<dd>Jars to be used in this Job. Argument can be repeated multiple times.</dd>
-<dt>--pyFiles</dt>
-<dd>Python files to be used in this job. Argument can be repeated multiple times.</dd>
-<dt>--files</dt>
-<dd>Files to be used in this job. Argument can be repeated multiple times.</dd>
-<dt>--driverMemory</dt>
-<dd>Amount of memory to use for the driver process.</dd>
-<dt>--driverCores</dt>
-<dd>Number of cores to use for the driver process.</dd>
-<dt>--executorMemory</dt>
-<dd>Amount of memory to use per executor process.</dd>
-<dt>--executorCores</dt>
-<dd>Number of cores to use for each executor.</dd>
-<dt>--numExecutors</dt>
-<dd>Number of executors to launch for this session.</dd>
-<dt>--archives</dt>
-<dd>Archives to be used in this session. Argument can be repeated multiple times.</dd>
-<dt>--queue</dt>
-<dd>The name of the YARN queue to submit the job to./dd>
-<dt>--name</dt>
-<dd>The name of this session.</dd>
-<dt>--conf</dt>
-<dd>Spark configuration property. Provide a single name=value pair. Argument can be repeated multiple times.</dd>
-<dt>--asynchronous</dt>
-<dd>Execute spark submit and return immediately without waiting for an application ID.</dd>
-<dt>--upload</dt>
-<dd>If set, all file related arguments will be treated as local file system references and will be uploaded to HDFS. Once uploaded, Spark submit will refer to the files in their HDFS locations. If this is set, any URI references such as `<scheme>://<host:port>/<path>` will be treated as an error.</dd>
-</dl>
+--user
+:   A user with authority to access the cluster.
+
+--password
+:   The password for the selected cluster user.
+
+--proxyUser
+:   User to impersonate when running the job. Use `clsadmin` to avoid permission issues.
+
+--className
+: Application Java/Spark main class
+
+--args
+:   Command-line arguments for the application. The argument can be repeated multiple times.
+
+--jars
+:   Jars to be used in this Job. Argument can be repeated multiple times.
+
+--pyFiles
+:   Python files to be used in this job. Argument can be repeated multiple times.
+
+--files
+:   Files to be used in this job. Argument can be repeated multiple times.
+
+--driverMemory
+:   Amount of memory to use for the driver process.
+
+--driverCores
+:   Number of cores to use for the driver process.
+
+--executorMemory
+:   Amount of memory to use per executor process.
+
+--executorCores
+:   Number of cores to use for each executor.
+
+--numExecutors
+:   Number of executors to launch for this session.
+
+--archives
+:   Archives to be used in this session. Argument can be repeated multiple times.
+
+--queue
+:   The name of the YARN queue to submit the job to.
+
+--name
+:   The name of this session.
+
+--conf
+:   Spark configuration property. Provide a single name=value pair. Argument can be repeated multiple times.
+
+--asynchronous
+:   Execute spark submit and return immediately without waiting for an application ID.
+
+--upload
+:   If set, all file related arguments will be treated as local file system references and will be uploaded to HDFS. Once uploaded, Spark submit will refer to the files in their HDFS locations. If this is set, any URI references such as `<scheme>://<host:port>/<path>` will be treated as an error.
 
 **Examples**:
 
