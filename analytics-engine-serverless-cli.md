@@ -75,7 +75,7 @@ OPTIONS:
 
 **Command options**:
 
-i, --instance-id
+-i, --instance-id
 :   The serverless instance ID
 
 --unset-instance
