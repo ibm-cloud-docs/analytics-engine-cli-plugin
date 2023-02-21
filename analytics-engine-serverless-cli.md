@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2022
-lastupdated: "2022-03-07"
+  years: 2015, 2023
+lastupdated: "2023-02-15"
 
 subcollection: analytics-engine-cli-plugin
 
@@ -26,10 +26,12 @@ To run {{site.data.keyword.iae_full_notm}} v3 CLI commands, use `ibmcloud analyt
 {: tip}
 
 ## Prerequisites
+{: #prerequisites}
 
 Download and install the {{site.data.keyword.Bluemix_notm}} CLI on your local system. See [{{site.data.keyword.Bluemix_notm}} CLI](/docs/cli?topic=cloud-cli-install-ibmcloud-cli) to install the CLI.
 
 ## Install the {{site.data.keyword.iae_full_notm}} v3 CLI
+{: #installation}
 
 Install the {{site.data.keyword.iae_full_notm}} v3 CLI by running the following command:
 ```sh
@@ -38,14 +40,15 @@ ibmcloud plugin install analytics-engine-v3
 {: pre}
 
 The following help CLI command shows that the v3 CLI supports CLI commands for:
-- Setting a target instance
-- Instance management
-- Log forwarding configuration
-- Spark application management
-- Spark history server management
+- [Setting a target instance](#analytics-engine-v3-target-cli)
+- [Instance management](#analytics-engine-v3-instance-cli)
+- [Spark application management](#analytics-engine-v3-spark-app-cli)
+- [Log forwarding configuration](#analytics-engine-v3-log-forwarding-config-cli)
+- [Spark history server management](#analytics-engine-v3-history-server-cli)
 
 ```sh
 $ ibmcloud ae-v3 --help
+
 NAME:
   analytics-engine-v3 - Manage serverless Spark instances and run applications.
 
@@ -73,40 +76,36 @@ Use "ibmcloud analytics-engine-v3 service-command --help" for more information a
 ```
 
 ## Set a target instance
+{: #analytics-engine-v3-target-cli}
 
-Use this command to set a target instance against which all subsequent CLI commands are run.
+The following command allows you to set a target instance against which all subsequent CLI commands are run.
 
-**Note**: If the instance ID is passed explicitly in any v3 CLI commands, it will override the instance ID that is set as the target.
+Note: If the instance ID is passed explicitly in any v3 CLI commands, it will override the instance ID that is set as the target.
 
 ```sh
-$ ibmcloud ae-v3 target --help
-NAME:
-  target - All commands that are run after setting a target are run on the instance specified as the target instance
-USAGE:
-  ibmcloud analytics-engine-v3 target [--instance-id INSTANCE-ID] [--unset-instance]
-OPTIONS:
-      -i, --instance-id string   The identifier of the target instance. All subsequent commands are run against the target instance.
-      --unset-instance           Revokes the target instance setting. The default is true.
+ibmcloud analytics-engine-v3 target [--instance-id INSTANCE-ID] [--unset-instance]
 ```
 
-**Command options**:
+### Command options
+{: #command-for-target}
 
 -i, --instance-id
-:   The serverless instance ID
+:   The identifier of the target Analytics Engine instance. All subsequent commands are run against the target instance.
 
 --unset-instance
 :   Revoke the target instance setting
 
 
-**Example**:
+### Examples
+{: #example-for-target}
 
 The following example shows you how to set a target instance:
 
 ```sh
-$ ibmcloud ae-v3 target --instance-id d2189b-b729-61f-adc0-987001da52e3 
+$ ibmcloud ae-v3 target --instance-id d2189b-b729-61f-adc0-987001da52e3
 ...
 
-Target instance d0f582f7-cbf4-4c64-bf7f-72efd21c9f32   
+Target instance d0f582f7-cbf4-4c64-bf7f-72efd21c9f32
 Subsequent commands will be run against the target instance
 ```
 {: pre}
@@ -123,8 +122,9 @@ No target instance is set
 {: pre}
 
 ## Instance management commands
+{: #analytics-engine-v3-instance-cli}
 
-Commands for Instance management.
+Use this command for Instance management.
 
 ```sh
 ibmcloud analytics-engine-v3 instance --help
@@ -136,7 +136,7 @@ ibmcloud analytics-engine-v3 instance --help
 Retrieve the details of a single Analytics Engine instance.
 
 ```sh
-ibmcloud analytics-engine-v3 instance show --id ID 
+ibmcloud analytics-engine-v3 instance show [--id ID]
 ```
 
 
@@ -144,20 +144,20 @@ ibmcloud analytics-engine-v3 instance show --id ID
 {: #analytics-engine-v3-instance-show-cli-options}
 
 `-i`, `--id` (string)
-:   GUID of the Analytics Engine service instance to retrieve. When specified, it overrides the target instance ID if it was set.
+:   GUID of the Analytics Engine service instance to retrieve. When specified, it overrides the target instance ID if it was set. Required if target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
 #### Examples
 {: #analytics-engine-v3-instance-show-examples}
 
-Example of using the `show` command without an instance ID. The requested operation will be performed on the target instance.
+The following example shows how to use the `show` command without an instance ID. The requested operation is performed on the target instance.
 ```sh
 ibmcloud analytics-engine-v3 instance show --output json
 ```
 {: pre}
 
-Example of using the `show` command with an instance ID that will override the target instance ID if defined:
+The following example shows how to use the `show` command with an instance ID that overrides the target instance ID if defined:
 ```sh
 ibmcloud analytics-engine-v3 instance show \
     --id=e64c907a-e82f-46fd-addc-ccfafbd28b09 \
@@ -167,6 +167,8 @@ ibmcloud analytics-engine-v3 instance show \
 
 #### Example output
 {: #analytics-engine-v3-instance-show-cli-output}
+
+The output is as follows:
 
 ```json
 {
@@ -200,7 +202,7 @@ ibmcloud analytics-engine-v3 instance show \
 Retrieve the state of a single Analytics Engine instance.
 
 ```sh
-ibmcloud analytics-engine-v3 instance state [--id ID] 
+ibmcloud analytics-engine-v3 instance state [--id ID]
 ```
 
 
@@ -208,7 +210,7 @@ ibmcloud analytics-engine-v3 instance state [--id ID]
 {: #analytics-engine-v3-instance-state-cli-options}
 
 `-i`, `--id` (string)
-:   GUID of the Analytics Engine service instance to retrieve state. When specified, it overrides the target instance ID if it was set.
+:   GUID of the Analytics Engine service instance to retrieve state. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -230,6 +232,8 @@ ibmcloud analytics-engine-v3 instance state \
 #### Example output
 {: #analytics-engine-v3-instance-state-cli-output}
 
+
+
 ```json
 {
   "id" : "dc0e9889-eab2-4t9e-9441-566209499546",
@@ -241,12 +245,12 @@ ibmcloud analytics-engine-v3 instance state \
 ### `ibmcloud analytics-engine-v3 instance home-set`
 {: #analytics-engine-v3-cli-instance-home-set-command}
 
-Provide the details of the Cloud Object Storage instance to associate with the Analytics Engine instance and use as 'instance home' if 'instance home' has not already been set. 
+Provide the details of the Cloud Object Storage instance to associate with the Analytics Engine instance and use as 'instance home' if 'instance home' has not already been set.
 
-**Note**: You can set 'instance home' again if the instance is in 'instance_home_creation_failure' state.
+Note: You can set 'instance home' again if the instance is in 'instance_home_creation_failure' state.
 
 ```sh
-ibmcloud analytics-engine-v3 instance home-set --id ID [--instance-home-id INSTANCE-HOME-ID] [--endpoint ENDPOINT] [--hmac-access-key HMAC-ACCESS-KEY] [--hmac-secret-key HMAC-SECRET-KEY] 
+ibmcloud analytics-engine-v3 instance home-set [--id ID] [--instance-home-id INSTANCE-HOME-ID] [--endpoint ENDPOINT] [--hmac-access-key HMAC-ACCESS-KEY] [--hmac-secret-key HMAC-SECRET-KEY]
 ```
 
 
@@ -254,7 +258,7 @@ ibmcloud analytics-engine-v3 instance home-set --id ID [--instance-home-id INSTA
 {: #analytics-engine-v3-instance-home-set-cli-options}
 
 `-i`, `--id` (string)
-:   The ID of the Analytics Engine instance for which 'instance home' is to be set. When specified, it overrides the target instance ID if it was set.
+:   The ID of the Analytics Engine instance for which 'instance home' is to be set. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -296,6 +300,7 @@ ibmcloud analytics-engine-v3 instance home-set \
 #### Example output
 {: #analytics-engine-v3-instance-home-set-cli-output}
 
+The output is as follows:
 ```json
 {
   "instance_id" : "701549e6-ab7e-43f2-8b7e-742698c53db8",
@@ -313,7 +318,7 @@ ibmcloud analytics-engine-v3 instance home-set \
 Get the default Spark configuration properties that will be applied to all applications of the instance.
 
 ```sh
-ibmcloud analytics-engine-v3 instance default-configs --id ID 
+ibmcloud analytics-engine-v3 instance default-configs [--id ID]
 ```
 
 
@@ -321,7 +326,7 @@ ibmcloud analytics-engine-v3 instance default-configs --id ID
 {: #analytics-engine-v3-instance-default-configs-cli-options}
 
 `-i`, `--id` (string)
-:   The ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set.
+:   The ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -343,6 +348,7 @@ ibmcloud analytics-engine-v3 instance default-configs \
 #### Example output
 {: #analytics-engine-v3-instance-default-configs-cli-output}
 
+The output is as follows:
 ```json
 {
   "spark.driver.memory" : "4G",
@@ -357,7 +363,7 @@ ibmcloud analytics-engine-v3 instance default-configs \
 Replace the default Spark configuration properties that will be applied to all applications of the instance.
 
 ```sh
-ibmcloud analytics-engine-v3 instance default-configs-replace --id ID --body BODY 
+ibmcloud analytics-engine-v3 instance default-configs-replace [--id ID] --body BODY
 ```
 
 
@@ -365,7 +371,7 @@ ibmcloud analytics-engine-v3 instance default-configs-replace --id ID --body BOD
 {: #analytics-engine-v3-instance-default-configs-replace-cli-options}
 
 `-i`, `--id` (string)
-:   The ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set.
+:   The ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -393,6 +399,7 @@ ibmcloud analytics-engine-v3 instance default-configs-replace \
 #### Example output
 {: #analytics-engine-v3-instance-default-configs-replace-cli-output}
 
+The output is as follows:
 ```json
 {
   "spark.driver.memory" : "8G",
@@ -407,7 +414,7 @@ ibmcloud analytics-engine-v3 instance default-configs-replace \
 Update the default Spark configuration properties that will be applied to all applications of the instance.
 
 ```sh
-ibmcloud analytics-engine-v3 instance default-configs-update --id ID --body BODY 
+ibmcloud analytics-engine-v3 instance default-configs-update [--id ID] --body BODY
 ```
 
 
@@ -415,7 +422,7 @@ ibmcloud analytics-engine-v3 instance default-configs-update --id ID --body BODY
 {: #analytics-engine-v3-instance-default-configs-update-cli-options}
 
 `-i`, `--id` (string)
-:   The ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set.
+:   The ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -443,6 +450,7 @@ ibmcloud analytics-engine-v3 instance default-configs-update \
 #### Example output
 {: #analytics-engine-v3-instance-default-configs-update-cli-output}
 
+The output is as follows:
 ```json
 {
   "ae.spark.history-server.cores" : "1",
@@ -459,7 +467,7 @@ ibmcloud analytics-engine-v3 instance default-configs-update \
 Get the default runtime environment on which all workloads of the instance will run.
 
 ```sh
-ibmcloud analytics-engine-v3 instance default-runtime --id ID 
+ibmcloud analytics-engine-v3 instance default-runtime [--id ID]
 ```
 
 
@@ -489,6 +497,7 @@ ibmcloud analytics-engine-v3 instance default-runtime \
 #### Example output
 {: #analytics-engine-v3-instance-default-runtime-cli-output}
 
+The output is as follows:
 ```json
 {
   "spark_version" : "3.1"
@@ -502,7 +511,7 @@ ibmcloud analytics-engine-v3 instance default-runtime \
 Replace the default runtime environment on which all workloads of the instance will run.
 
 ```sh
-ibmcloud analytics-engine-v3 instance default-runtime-replace --id ID --runtime-spark-version RUNTIME-SPARK-VERSION 
+ibmcloud analytics-engine-v3 instance default-runtime-replace [--id ID] --runtime-spark-version RUNTIME-SPARK-VERSION
 ```
 
 
@@ -510,7 +519,7 @@ ibmcloud analytics-engine-v3 instance default-runtime-replace --id ID --runtime-
 {: #analytics-engine-v3-instance-default-runtime-replace-cli-options}
 
 `-i`, `--id` (string)
-:   The ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set.
+:   The ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -540,6 +549,7 @@ ibmcloud analytics-engine-v3 instance default-runtime-replace \
 #### Example output
 {: #analytics-engine-v3-instance-default-runtime-replace-cli-output}
 
+The output is as follows:
 ```json
 {
   "spark_version" : "3.3"
@@ -550,10 +560,12 @@ ibmcloud analytics-engine-v3 instance default-runtime-replace \
 ### `ibmcloud analytics-engine-v3 instance current-resource-consumption`
 {: #analytics-engine-v3-cli-instance-current-resource-consumption-command}
 
-Gives the total memory and virtual processor cores allotted to all the applications running in the service instance at this point in time. When auto-scaled applications are running, the resources allotted will change over time, based on the applications's demands. Note: The consumption is not an indication of actual resource consumption by Spark processes. It is the sum of resources allocated to the currently running applications at the time of application submission.
+Provides the total memory and virtual processor cores allocated to all the applications running in the service instance at this point in time. When auto-scaled applications are running, the resources allotted changes over time, based on the applications's demands.
+
+Note: The consumption is not an indication of actual resource consumption by Spark processes. It is the sum of resources allocated to the currently running applications at the time of application submission.
 
 ```sh
-ibmcloud analytics-engine-v3 instance current-resource-consumption --id ID 
+ibmcloud analytics-engine-v3 instance current-resource-consumption [--id ID]
 ```
 
 
@@ -561,7 +573,7 @@ ibmcloud analytics-engine-v3 instance current-resource-consumption --id ID
 {: #analytics-engine-v3-instance-current-resource-consumption-cli-options}
 
 `-i`, `--id` (string)
-:   ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set.
+:   ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -583,6 +595,7 @@ ibmcloud analytics-engine-v3 instance current-resource-consumption \
 #### Example output
 {: #analytics-engine-v3-instance-current-resource-consumption-cli-output}
 
+The output is as follows:
 ```json
 {
   "cores" : "2",
@@ -594,10 +607,10 @@ ibmcloud analytics-engine-v3 instance current-resource-consumption \
 ### `ibmcloud analytics-engine-v3 instance resource-consumption-limits`
 {: #analytics-engine-v3-cli-instance-resource-consumption-limits-command}
 
-Returns the maximum total memory and virtual processor cores that can be allotted across all the applications running in the service instance at any point in time.
+Returns the maximum total memory and virtual processor cores allocated across all the applications running in the service instance at any point in time.
 
 ```sh
-ibmcloud analytics-engine-v3 instance resource-consumption-limits --id ID 
+ibmcloud analytics-engine-v3 instance resource-consumption-limits [--id ID]
 ```
 
 
@@ -605,7 +618,7 @@ ibmcloud analytics-engine-v3 instance resource-consumption-limits --id ID
 {: #analytics-engine-v3-instance-resource-consumption-limits-cli-options}
 
 `-i`, `--id` (string)
-:   ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set.
+:   ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -627,6 +640,7 @@ ibmcloud analytics-engine-v3 instance resource-consumption-limits \
 #### Example output
 {: #analytics-engine-v3-instance-resource-consumption-limits-cli-output}
 
+The output is as follows:
 ```json
 {
   "max_cores" : "150",
@@ -636,6 +650,7 @@ ibmcloud analytics-engine-v3 instance resource-consumption-limits \
 {: screen}
 
 ## Spark application commands
+{: #analytics-engine-v3-spark-app-cli}
 
 With the Spark application CLI commands, you can perform the following operations:
 
@@ -655,7 +670,7 @@ ibmcloud analytics-engine-v3 spark-app --help
 Deploys a Spark application on a given serverless Spark instance.
 
 ```sh
-ibmcloud analytics-engine-v3 spark-app submit --instance-id INSTANCE-ID [--app APP] [--runtime RUNTIME] [--jars JARS] [--packages PACKAGES] [--repositories REPOSITORIES] [--files FILES] [--archives ARCHIVES] [--name NAME] [--class CLASS] [--arg ARG] [--conf CONF] [--env ENV] 
+ibmcloud analytics-engine-v3 spark-app submit [--instance-id INSTANCE-ID] [--app APP] [--runtime RUNTIME] [--jars JARS] [--packages PACKAGES] [--repositories REPOSITORIES] [--files FILES] [--archives ARCHIVES] [--name NAME] [--class CLASS] [--arg ARG] [--conf CONF] [--env ENV]
 ```
 
 
@@ -663,7 +678,7 @@ ibmcloud analytics-engine-v3 spark-app submit --instance-id INSTANCE-ID [--app A
 {: #analytics-engine-v3-spark-app-submit-cli-options}
 
 `-i`, `--instance-id` (string)
-:   The identifier of the Analytics Engine instance associated with the Spark application(s). When specified, it overrides the target instance ID if it was set.
+:   The identifier of the Analytics Engine instance associated with the Spark application(s). When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -730,6 +745,7 @@ ibmcloud analytics-engine-v3 spark-app submit \
 #### Example output
 {: #analytics-engine-v3-spark-app-submit-cli-output}
 
+The output is as follows:
 ```json
 {
   "id" : "87e63712-a823-4aa1-9f6e-7291d4e5a113",
@@ -741,10 +757,10 @@ ibmcloud analytics-engine-v3 spark-app submit \
 ### `ibmcloud analytics-engine-v3 spark-app list`
 {: #analytics-engine-v3-cli-spark-app-list-command}
 
-Returns a list of all Spark applications submitted to the specified Analytics Engine instance. The result can be filtered by specifying query parameters.
+Returns a list of all Spark application submitted to the specified Analytics Engine instance. The result can be filtered by specifying query parameters.
 
 ```sh
-ibmcloud analytics-engine-v3 spark-app list --instance-id INSTANCE-ID [--state STATE] 
+ibmcloud analytics-engine-v3 spark-app list [--instance-id INSTANCE-ID] [--state STATE]
 ```
 
 
@@ -752,7 +768,7 @@ ibmcloud analytics-engine-v3 spark-app list --instance-id INSTANCE-ID [--state S
 {: #analytics-engine-v3-spark-app-list-cli-options}
 
 `-i`, `--instance-id` (string)
-:   The identifier of the Analytics Engine instance associated with the Spark application(s). When specified, it overrides the target instance ID if it was set.
+:   The identifier of the Analytics Engine instance associated with the Spark application(s). When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -780,6 +796,7 @@ ibmcloud analytics-engine-v3 spark-app list \
 #### Example output
 {: #analytics-engine-v3-spark-app-list-cli-output}
 
+The output is as follows:
 ```json
 {
   "applications" : [ {
@@ -806,7 +823,7 @@ ibmcloud analytics-engine-v3 spark-app list \
 Gets the details of a given Spark application.
 
 ```sh
-ibmcloud analytics-engine-v3 spark-app show --instance-id INSTANCE-ID --app-id APP-ID 
+ibmcloud analytics-engine-v3 spark-app show [--instance-id INSTANCE-ID] --app-id APP-ID
 ```
 
 
@@ -814,7 +831,7 @@ ibmcloud analytics-engine-v3 spark-app show --instance-id INSTANCE-ID --app-id A
 {: #analytics-engine-v3-spark-app-show-cli-options}
 
 `-i`, `--instance-id` (string)
-:   Identifier of the instance to which the application belongs. When specified, it overrides the target instance ID if it was set.
+:   Identifier of the instance to which the application belongs. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -844,6 +861,7 @@ ibmcloud analytics-engine-v3 spark-app show \
 #### Example output
 {: #analytics-engine-v3-spark-app-show-cli-output}
 
+The output is as follows:
 ```json
 {
   "application_details" : {
@@ -872,7 +890,7 @@ ibmcloud analytics-engine-v3 spark-app show \
 Stops a running application identified by the app_id identifier. This is an idempotent operation. Performs no action if the requested application is already stopped or completed.
 
 ```sh
-ibmcloud analytics-engine-v3 spark-app stop --instance-id INSTANCE-ID --app-id APP-ID 
+ibmcloud analytics-engine-v3 spark-app stop [--instance-id INSTANCE-ID] --app-id APP-ID
 ```
 
 
@@ -880,7 +898,7 @@ ibmcloud analytics-engine-v3 spark-app stop --instance-id INSTANCE-ID --app-id A
 {: #analytics-engine-v3-spark-app-stop-cli-options}
 
 `-i`, `--instance-id` (string)
-:   Identifier of the instance to which the application belongs. When specified, it overrides the target instance ID if it was set.
+:   Identifier of the instance to which the application belongs. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -911,7 +929,7 @@ ibmcloud analytics-engine-v3 spark-app stop \
 Returns the status of the given Spark application.
 
 ```sh
-ibmcloud analytics-engine-v3 spark-app status --instance-id INSTANCE-ID --app-id APP-ID 
+ibmcloud analytics-engine-v3 spark-app status [--instance-id INSTANCE-ID] --app-id APP-ID
 ```
 
 
@@ -919,7 +937,7 @@ ibmcloud analytics-engine-v3 spark-app status --instance-id INSTANCE-ID --app-id
 {: #analytics-engine-v3-spark-app-status-cli-options}
 
 `-i`, `--instance-id` (string)
-:   Identifier of the instance to which the applications belongs. When specified, it overrides the target instance ID if it was set.
+:   Identifier of the instance to which the applications belongs. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -949,6 +967,7 @@ ibmcloud analytics-engine-v3 spark-app status \
 #### Example output
 {: #analytics-engine-v3-spark-app-status-cli-output}
 
+The output is as follows:
 ```json
 {
   "id" : "9da32aaf-df69-4e61-bdb8-1b2772c0f677",
@@ -964,7 +983,7 @@ ibmcloud analytics-engine-v3 spark-app status \
 ## Log forwarding configuration
 {: #analytics-engine-v3-log-forwarding-config-cli}
 
-Use these commands to enable or disable forwarding of logs from a serverless instance to an IBM Log Analysis service and to view the status of the log forwarding configuration.
+Use this command to enable or disable forwarding of logs from a serverless instance to an IBM Log Analysis service and to view the status of the log forwarding configuration.
 
 ```sh
 ibmcloud analytics-engine-v3 log-forwarding-config --help
@@ -977,7 +996,7 @@ ibmcloud analytics-engine-v3 log-forwarding-config --help
 Modify the configuration for forwarding logs from the Analytics Engine instance to IBM Log Analysis server. Use this endpoint to enable or disable log forwarding.
 
 ```sh
-ibmcloud analytics-engine-v3 log-forwarding-config replace --instance-id INSTANCE-ID [--enabled ENABLED] [--sources SOURCES] [--tags TAGS] 
+ibmcloud analytics-engine-v3 log-forwarding-config replace [--instance-id INSTANCE-ID] --enabled ENABLED [--sources SOURCES] [--tags TAGS]
 ```
 
 
@@ -985,7 +1004,7 @@ ibmcloud analytics-engine-v3 log-forwarding-config replace --instance-id INSTANC
 {: #analytics-engine-v3-log-forwarding-config-replace-cli-options}
 
 `-i`, `--instance-id` (string)
-:   ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set.
+:   ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -1023,6 +1042,7 @@ ibmcloud analytics-engine-v3 log-forwarding-config replace \
 #### Example output
 {: #analytics-engine-v3-log-forwarding-config-replace-cli-output}
 
+The output is as follows:
 ```json
 {
   "sources" : [ "spark-driver", "spark-executor" ],
@@ -1040,7 +1060,7 @@ ibmcloud analytics-engine-v3 log-forwarding-config replace \
 Retrieve the log forwarding configuration of the Analytics Engine instance.
 
 ```sh
-ibmcloud analytics-engine-v3 log-forwarding-config show --instance-id INSTANCE-ID 
+ibmcloud analytics-engine-v3 log-forwarding-config show [--instance-id INSTANCE-ID]
 ```
 
 
@@ -1048,7 +1068,7 @@ ibmcloud analytics-engine-v3 log-forwarding-config show --instance-id INSTANCE-I
 {: #analytics-engine-v3-log-forwarding-config-show-cli-options}
 
 `-i`, `--instance-id` (string)
-:   ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set.
+:   ID of the Analytics Engine instance. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -1070,6 +1090,7 @@ ibmcloud analytics-engine-v3 log-forwarding-config show \
 #### Example output
 {: #analytics-engine-v3-log-forwarding-config-show-cli-output}
 
+The output is as follows:
 ```json
 {
   "sources" : [ "spark-driver", "spark-executor" ],
@@ -1097,7 +1118,7 @@ ibmcloud analytics-engine-v3 history-server --help
 Start the Spark history server for the given Analytics Engine instance.
 
 ```sh
-ibmcloud analytics-engine-v3 history-server start --instance-id INSTANCE-ID 
+ibmcloud analytics-engine-v3 history-server start [--instance-id INSTANCE-ID]
 ```
 
 
@@ -1105,7 +1126,7 @@ ibmcloud analytics-engine-v3 history-server start --instance-id INSTANCE-ID
 {: #analytics-engine-v3-history-server-start-cli-options}
 
 `-i`, `--instance-id` (string)
-:   The ID of the Analytics Engine instance to which the Spark history server belongs. When specified, it overrides the target instance ID if it was set.
+:   The ID of the Analytics Engine instance to which the Spark history server belongs. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -1127,6 +1148,7 @@ ibmcloud analytics-engine-v3 history-server start \
 #### Example output
 {: #analytics-engine-v3-history-server-start-cli-output}
 
+The output is as follows:
 ```json
 {
   "state" : "started",
@@ -1144,7 +1166,7 @@ ibmcloud analytics-engine-v3 history-server start \
 Get the details of the Spark history server of the given Analytics Engine instance.
 
 ```sh
-ibmcloud analytics-engine-v3 history-server show --instance-id INSTANCE-ID 
+ibmcloud analytics-engine-v3 history-server show [--instance-id INSTANCE-ID]
 ```
 
 
@@ -1152,7 +1174,7 @@ ibmcloud analytics-engine-v3 history-server show --instance-id INSTANCE-ID
 {: #analytics-engine-v3-history-server-show-cli-options}
 
 `-i`, `--instance-id` (string)
-:   The ID of the Analytics Engine instance to which the Spark history server belongs. When specified, it overrides the target instance ID if it was set.
+:   The ID of the Analytics Engine instance to which the Spark history server belongs. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -1174,6 +1196,7 @@ ibmcloud analytics-engine-v3 history-server show \
 #### Example output
 {: #analytics-engine-v3-history-server-show-cli-output}
 
+The output is as follows:
 ```json
 {
   "state" : "started",
@@ -1191,7 +1214,7 @@ ibmcloud analytics-engine-v3 history-server show \
 Stop the Spark history server of the given Analytics Engine instance.
 
 ```sh
-ibmcloud analytics-engine-v3 history-server stop --instance-id INSTANCE-ID 
+ibmcloud analytics-engine-v3 history-server stop [--instance-id INSTANCE-ID]
 ```
 
 
@@ -1199,7 +1222,7 @@ ibmcloud analytics-engine-v3 history-server stop --instance-id INSTANCE-ID
 {: #analytics-engine-v3-history-server-stop-cli-options}
 
 `-i`, `--instance-id` (string)
-:   The ID of the Analytics Engine instance to which the Spark history server belongs. When specified, it overrides the target instance ID if it was set.
+:   The ID of the Analytics Engine instance to which the Spark history server belongs. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -1221,7 +1244,7 @@ ibmcloud analytics-engine-v3 history-server stop \
 ## Log configuration
 {: #analytics-engine-v3-log-config-cli}
 
-*Note:* Deprecated. Use equivalent commands from the [log-forwarding-config](#analytics-engine-v3-log-forwarding-config-cli) command group instead.
+Note: Deprecated. Use equivalent commands from the [log-forwarding-config](#analytics-engine-v3-log-forwarding-config-cli) command group instead.
 
 ```sh
 ibmcloud analytics-engine-v3 log-config --help
@@ -1231,12 +1254,12 @@ ibmcloud analytics-engine-v3 log-config --help
 ### `ibmcloud analytics-engine-v3 log-config update`
 {: #analytics-engine-v3-cli-log-config-update-command}
 
-Enable or disable log forwarding from IBM Analytics Engine to IBM Log Analysis server.  
+Enable or disable log forwarding from IBM Analytics Engine to IBM Log Analysis server.
 
-*Note:* Deprecated. Use `replace` from the `log-forwarding-config` command group instead.
+Note: Deprecated. Use `replace` from the `log-forwarding-config` command group instead.
 
 ```sh
-ibmcloud analytics-engine-v3 log-config update --instance-id INSTANCE-ID [--enable ENABLE] 
+ibmcloud analytics-engine-v3 log-config update [--instance-id INSTANCE-ID] [--enable ENABLE]
 ```
 
 
@@ -1244,7 +1267,7 @@ ibmcloud analytics-engine-v3 log-config update --instance-id INSTANCE-ID [--enab
 {: #analytics-engine-v3-log-config-update-cli-options}
 
 `-i`, `--instance-id` (string)
-:   GUID of the instance details for which log forwarding is to be configured. When specified, it overrides the target instance ID if it was set.
+:   GUID of the instance details for which log forwarding is to be configured. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -1272,6 +1295,7 @@ ibmcloud analytics-engine-v3 log-config update \
 #### Example output
 {: #analytics-engine-v3-log-config-update-cli-output}
 
+The output is as follows:
 ```json
 {
   "components" : [ "spark-driver", "spark-executor" ],
@@ -1286,12 +1310,12 @@ ibmcloud analytics-engine-v3 log-config update \
 ### `ibmcloud analytics-engine-v3 log-config show`
 {: #analytics-engine-v3-cli-log-config-show-command}
 
-Retrieve the logging configuration of a given Analytics Engine instance.  
+Retrieve the logging configuration of a given Analytics Engine instance.
 
-*Note:* Deprecated. Use `show` from the `log-forwarding-config` command group instead.
+Note: Deprecated. Use `show` from the `log-forwarding-config` command group instead.
 
 ```sh
-ibmcloud analytics-engine-v3 log-config show --instance-id INSTANCE-ID 
+ibmcloud analytics-engine-v3 log-config show [--instance-id INSTANCE-ID]
 ```
 
 
@@ -1299,7 +1323,7 @@ ibmcloud analytics-engine-v3 log-config show --instance-id INSTANCE-ID
 {: #analytics-engine-v3-log-config-show-cli-options}
 
 `-i`, `--instance-id` (string)
-:   GUID of the Analytics Engine service instance to retrieve log configuration. When specified, it overrides the target instance ID if it was set.
+:   GUID of the Analytics Engine service instance to retrieve log configuration. When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
 
     The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
@@ -1321,6 +1345,7 @@ ibmcloud analytics-engine-v3 log-config show \
 #### Example output
 {: #analytics-engine-v3-log-config-show-cli-output}
 
+The output is as follows:
 ```json
 {
   "components" : [ "spark-driver", "spark-executor" ],
@@ -1336,7 +1361,7 @@ ibmcloud analytics-engine-v3 log-config show \
 ## Schema examples
 {: #analytics-engine-v3-schema-examples}
 
-The following schema examples represent the data that you need to specify for a command option. These examples model the data structure and include placeholder values for the expected value type. When you run a command, replace these values with the values that apply to your environment as appropriate.
+The following schema example represents the data required to specify command option. These example model the data structure and include placeholder values for the expected value type. When you run a command, replace these values with the values that apply to your environment as appropriate.
 
 ### Runtime
 {: #cli-runtime-example-schema}
@@ -1344,9 +1369,8 @@ The following schema examples represent the data that you need to specify for a 
 The following example shows the format of the Runtime object.
 
 ```json
-
 {
   "spark_version" : "3.3"
 }
 ```
-{: codeblock}
+{: screen}

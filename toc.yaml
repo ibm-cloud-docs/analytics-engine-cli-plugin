@@ -5,10 +5,10 @@ toc:
     href: /docs/analytics-engine-cli-plugin
     path: analytics-engine-cli-plugin
     label: IBM Analytics Engine CLI
-    
-  entries: 
-  - navgroup: 
+
+  entries:
+  - navgroup:
       id: reference
       topics:
       - analytics-engine-serverless-cli.md
-      - analytics-engine-service-cli.md
+      # - analytics-engine-service-cli.md
