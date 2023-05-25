@@ -757,10 +757,10 @@ The output is as follows:
 ### `ibmcloud analytics-engine-v3 spark-app list`
 {: #analytics-engine-v3-cli-spark-app-list-command}
 
-Returns a list of all Spark application submitted to the specified Analytics Engine instance. The result can be filtered by specifying query parameters.
+Returns a list of all Spark application submitted to the specified Analytics Engine instance. The result can be filtered by specifying query parameters. The number of applications returned can be limited by specifying the `limit` query parameter. Use `start` together with `limit` to fetch the next or previous page of results.
 
 ```sh
-ibmcloud analytics-engine-v3 spark-app list [--instance-id INSTANCE-ID] [--state STATE]
+ibmcloud analytics-engine-v3 spark-app list [--instance-id INSTANCE-ID] [--state STATE] [--limit LIMIT] [--start START]
 ```
 
 
@@ -768,28 +768,41 @@ ibmcloud analytics-engine-v3 spark-app list [--instance-id INSTANCE-ID] [--state
 {: #analytics-engine-v3-spark-app-list-cli-options}
 
 `-i`, `--instance-id` (string)
-:   The identifier of the Analytics Engine instance associated with the Spark application(s). When specified, it overrides the target instance ID if it was set. Required, if the target instance was not set.
+:   The identifier of the Analytics Engine instance associated with the Spark application(s). Required.
 
-    The value must match the regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
+    The value must match regular expression `/\u0008[0-9a-f]{8}\u0008-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\u0008[0-9a-f]{12}\u0008/`.
 
 `--state` ([]string)
 :   List of Spark application states that will be used to filter the response.
 
     Allowable list items are: `finished`, `running`, `failed`, `accepted`, `stopped`, `auto_terminated`, `ops_terminated`.
 
+`--limit` (int64)
+:   Number of application entries to be included in the response.
+
+    The maximum value is `1000`. The minimum value is `1`.
+
+`--start` (string)
+:   Token used to fetch the next or the previous page of the applications list.
+
+`--all-pages` (bool)
+:   Invoke multiple requests to display all pages of the collection for spark-app-list.
+
 #### Examples
 {: #analytics-engine-v3-spark-app-list-examples}
 
 ```sh
 ibmcloud analytics-engine-v3 spark-app list \
-    --state=finished
+    --state=finished \
+    --limit=25 
 ```
 {: pre}
 
 ```sh
 ibmcloud analytics-engine-v3 spark-app list \
     --instance-id=e64c907a-e82f-46fd-addc-ccfafbd28b09 \
-    --state=finished
+    --state=finished \
+    --limit=25 
 ```
 {: pre}
 
@@ -808,11 +821,26 @@ The output is as follows:
     "start_time" : "2021-04-21T04:24:01Z",
     "end_time" : "2021-04-21T04:25:18Z",
     "finish_time" : "2021-04-21T04:25:18Z",
-    "auto_termination_time" : "2021-04-24T04:24:01Z",
-    "runtime": {
-      "spark_version": "3.1"
-    }
-  } ]
+    "auto_termination_time" : "2021-04-24T04:24:01Z"
+  }, {
+    "id" : "a2a2b23f-0929-4c49-9cc0-bd4c2bf953d9",
+    "spark_application_id" : "app-20211009103147-0000",
+    "spark_application_name" : "PythonWordCount",
+    "state" : "finished",
+    "submission_time" : "2021-04-21T04:21:50Z",
+    "start_time" : "2021-04-21T04:22:01Z",
+    "end_time" : "2021-04-21T04:23:18Z",
+    "finish_time" : "2021-04-21T04:23:18Z",
+    "auto_termination_time" : "2021-04-24T04:22:01Z"
+  } ],
+  "first" : {
+    "href" : "https://api.us-south.ae.cloud.ibm.com/v3/analytics_engines/e64c907a-e82f-46fd-addc-ccfafbd28b09/spark_applications?limit=25"
+  },
+  "next" : {
+    "href" : "https://api.us-south.ae.cloud.ibm.com/v3/analytics_engines/e64c907a-e82f-46fd-addc-ccfafbd28b09/spark_applications?limit=25&start=QiwyMDIyLTA5LTI2IDA4OjE4OjU2LjE4MiwxMDAyYTVlZC0xZWU4LTQwZWItOWUyNC00OTMyNTcxZjgzYzE",
+    "start" : "QiwyMDIyLTA5LTI2IDA4OjE4OjU2LjE4MiwxMDAyYTVlZC0xZWU4LTQwZWItOWUyNC00OTMyNTcxZjgzYzE"
+  },
+  "limit": 25
 }
 ```
 {: screen}
