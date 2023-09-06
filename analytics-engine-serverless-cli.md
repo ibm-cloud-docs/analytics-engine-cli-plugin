@@ -176,7 +176,7 @@ The output is as follows:
   "state" : "active",
   "state_change_time" : "2021-04-21T04:24:01Z",
   "default_runtime" : {
-    "spark_version" : "3.1"
+    "spark_version" : "3.3"
   },
   "instance_home" : {
     "guid" : "30d5c4a7-9fb7-4712-9039-a79417dec87b",
@@ -500,7 +500,7 @@ ibmcloud analytics-engine-v3 instance default-runtime \
 The output is as follows:
 ```json
 {
-  "spark_version" : "3.1"
+  "spark_version" : "3.3"
 }
 ```
 {: screen}
@@ -526,7 +526,7 @@ ibmcloud analytics-engine-v3 instance default-runtime-replace [--id ID] --runtim
 `--runtime-spark-version` (string)
 :   Spark version of the runtime environment. Required.
 
-    Allowable values are: `3.1`, `3.3`.
+    Allowable values are: `3.1`, `3.3`, `3.4`.
 
 #### Examples
 {: #analytics-engine-v3-instance-default-runtime-replace-examples}
@@ -727,7 +727,7 @@ ibmcloud analytics-engine-v3 spark-app submit [--instance-id INSTANCE-ID] [--app
 ibmcloud analytics-engine-v3 spark-app submit \
     --arg "/opt/ibm/spark/examples/src/main/resources/people.txt" \
     --app "/opt/ibm/spark/examples/src/main/python/wordcount.py" \
-    --runtime='{"spark_version": "3.1"}' \
+    --runtime='{"spark_version": "3.3"}' \
     --output json
 ```
 {: pre}
@@ -737,7 +737,7 @@ ibmcloud analytics-engine-v3 spark-app submit \
     --instance-id=e64c907a-e82f-46fd-addc-ccfafbd28b09 \
     --arg "/opt/ibm/spark/examples/src/main/resources/people.txt" \
     --app "/opt/ibm/spark/examples/src/main/python/wordcount.py" \
-    --runtime='{"spark_version": "3.1"}' \
+    --runtime='{"spark_version": "3.3"}' \
     --output json
 ```
 {: pre}
@@ -794,7 +794,7 @@ ibmcloud analytics-engine-v3 spark-app list [--instance-id INSTANCE-ID] [--state
 ```sh
 ibmcloud analytics-engine-v3 spark-app list \
     --state=finished \
-    --limit=25 
+    --limit=25
 ```
 {: pre}
 
@@ -802,7 +802,7 @@ ibmcloud analytics-engine-v3 spark-app list \
 ibmcloud analytics-engine-v3 spark-app list \
     --instance-id=e64c907a-e82f-46fd-addc-ccfafbd28b09 \
     --state=finished \
-    --limit=25 
+    --limit=25
 ```
 {: pre}
 
@@ -896,7 +896,7 @@ The output is as follows:
     "application" : "/opt/ibm/spark/examples/src/main/python/wordcount.py",
     "arguments" : [ "/opt/ibm/spark/examples/src/main/resources/people.txt" ],
     "runtime": {
-      "spark_version": "3.1"
+      "spark_version": "3.3"
     }
   },
   "id" : "a9a6f328-56d8-4923-8042-97652fff2af3",

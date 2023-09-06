@@ -21,6 +21,8 @@ subcollection: analytics-engine-cli-plugin
 Use the {{site.data.keyword.Bluemix_notm}} command-line interface (CLI) to interact with the cluster for an  {{site.data.keyword.iae_full_notm}} classic service instance.
 
 ## Prerequisites
+{: #CLI_analytics_engine_classic-1}
+
 To use the {{site.data.keyword.Bluemix_notm}} CLI, download and install the following packages on your local system. Do not install the packages on the {{site.data.keyword.iae_full_notm}} cluster.
 
 - The [Cloud Foundry CLI](https://github.com/cloudfoundry/cli/blob/master/README.md#installing-using-a-package-manager)
@@ -28,6 +30,7 @@ To use the {{site.data.keyword.Bluemix_notm}} CLI, download and install the foll
 - The [{{site.data.keyword.Bluemix_notm}} CLI](/docs/cli?topic=cloud-cli-install-ibmcloud-cli)
 
 ## Install the {{site.data.keyword.iae_full_notm}} CLI
+{: #CLI_analytics_engine_classic-2}
 
 For details about the {{site.data.keyword.Bluemix_notm}} CLI plugin installation, see the [documentation](/docs/cli?topic=cloud-cli-getting-started).
 
@@ -53,6 +56,7 @@ ibmcloud plugin repo-add Bluemix https://plugins.ng.bluemix.net
 {: codeblock}
 
 ## Get started
+{: #CLI_analytics_engine_classic_3}
 
 1. Run the [spark-endpoint](#endpoint) command to set the {{site.data.keyword.iae_full_notm}} cluster endpoint. The argument for `endpoint` is the IP or hostname of the cluster management node.
     ```
@@ -356,7 +360,7 @@ ibmcloud ae file-system [--user <user>] [--password <password>] rm [-R] FILE
     Are you sure you want to remove '/user/clsadmin/logs' from HDFS ? [y/N]> y
     Removing...
     OK
-    ```     
+    ```
 
 ## kernels
 {: #kernels}
@@ -377,7 +381,7 @@ ibmcloud ae kernels [--user <user>] [--password <password>] get ID
 ibmcloud ae kernels [--user <user>] [--password <password>] interrupt ID
     ID is the kernel ID that will be interrupted
 
-ibmcloud ae kernels [--user <user>] [--password <password>] ls  
+ibmcloud ae kernels [--user <user>] [--password <password>] ls
 
 ibmcloud ae kernels [--user <user>] [--password <password>] restart ID
     ID is the kernel ID that will be restarted
