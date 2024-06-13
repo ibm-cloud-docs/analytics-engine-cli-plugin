@@ -5,7 +5,6 @@ toc:
     href: /docs/analytics-engine-cli-plugin
     path: analytics-engine-cli-plugin
     label: IBM Analytics Engine CLI
-
   entries:
   - navgroup:
       id: reference
