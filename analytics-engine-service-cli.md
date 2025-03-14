@@ -1,7 +1,7 @@
 ---
 
 copyright:
-  years: 2015, 2020
+  years: 2015, 2025
 lastupdated: "2021-07-26"
 
 subcollection: analytics-engine-cli-plugin
