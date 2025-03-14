@@ -4,6 +4,7 @@ toc:
     audience: service
     href: /docs/analytics-engine-cli-plugin
     path: analytics-engine-cli-plugin
+    navigation: hidden     # Add this attribute
     label: IBM Analytics Engine CLI
   entries:
   - navgroup:
