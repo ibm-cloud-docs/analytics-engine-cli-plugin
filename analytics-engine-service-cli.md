@@ -494,7 +494,7 @@ ibmcloud ae kernels [--user <user>] [--password <password>] specs
 
     ```
     ibmcloud ae kernels [--user <user>] [--password <password>] specs
-     ```
+    ```
 
     **Command options**:
 
