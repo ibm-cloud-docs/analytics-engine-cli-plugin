@@ -1,7 +1,7 @@
 ---
 
 copyright:
-  years: 2015, 2023
+  years: 2015, 2025
 lastupdated: "2023-02-15"
 
 subcollection: analytics-engine-cli-plugin
@@ -715,7 +715,7 @@ ibmcloud analytics-engine-v3 spark-app submit [--instance-id INSTANCE-ID] [--app
 :   An array of arguments to be passed to the application.
 
 `--conf` (generic map)
-:   Application configurations to override the value specified at instance level. See [Spark environment variables]( https://spark.apache.org/docs/latest/configuration.html#available-properties) for a list of the supported variables.
+:   Application configurations to override the value specified at instance level. See [Spark environment variables](https://spark.apache.org/docs/latest/configuration.html#available-properties) for a list of the supported variables.
 
 `--env` (generic map)
 :   Application environment configurations to use. See [Spark environment variables](https://spark.apache.org/docs/latest/configuration.html#environment-variables) for a list of the supported variables.

@@ -1,7 +1,7 @@
 ---
 
 copyright:
-  years: 2015, 2020
+  years: 2015, 2025
 lastupdated: "2021-07-26"
 
 subcollection: analytics-engine-cli-plugin
@@ -25,6 +25,7 @@ Use the {{site.data.keyword.Bluemix_notm}} command-line interface (CLI) to inter
 {: #CLI_analytics_engine_classic-1}
 
 To use the {{site.data.keyword.Bluemix_notm}} CLI, download and install the following packages on your local system. Do not install the packages on the {{site.data.keyword.iae_full_notm}} cluster.
+
 
 
 - The [Cloud Foundry CLI](https://github.com/cloudfoundry/cli/blob/master/README.md#installing-using-a-package-manager)
