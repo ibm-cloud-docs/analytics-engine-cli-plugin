@@ -28,7 +28,7 @@ To run {{site.data.keyword.iae_full_notm}} v3 CLI commands, use `ibmcloud analyt
 ## Prerequisites
 {: #prerequisites}
 
-Download and install the {{site.data.keyword.Bluemix_notm}} CLI on your local system. See [{{site.data.keyword.Bluemix_notm}} CLI](/docs/cli?topic=cloud-cli-install-ibmcloud-cli) to install the CLI.
+Download and install the {{site.data.keyword.Bluemix_notm}} CLI on your local system. See [{{site.data.keyword.Bluemix_notm}} CLI](/docs/cli?topic=cli-install-ibmcloud-cli) to install the CLI.
 
 ## Install the {{site.data.keyword.iae_full_notm}} v3 CLI
 {: #installation}
